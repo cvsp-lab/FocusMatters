@@ -1,5 +1,7 @@
 # Focus Matters: Phas-Aware Suppression for Hallucination in Vision-Language Models
 
+[🌐 Project Page](https://paper.pnu-cvsp.com/FocusMatters/)
+
 > This code reproduces the results reported in Table 1 of the main paper for LLaVA-1.5-7B, covering both the Origin baseline and our proposed DPP masking method. It includes evaluation scripts for CHAIR (CHAIR_I / CHAIR_S) and POPE (Random, Popular, and Adversarial settings) on the COCO val2014 dataset.
 
 ## Environment Setup
