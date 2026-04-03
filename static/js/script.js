@@ -194,19 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
 
   const chairData = [
-    { src: 'static/image/llava7b_qualitive_chair.png', model: 'LLaVA-1.5-7B' },
-    { src: 'static/image/llava13b_qualitve_chair.png', model: 'LLaVA-1.5-13B' },
-    { src: 'static/image/Qwen_qualitive_chair.png', model: 'Qwen-2.5-VL' },
-    { src: 'static/image/Shikra_qualitive_chair.png', model: 'Shikra-7B' },
-    { src: 'static/image/Intern_qualitive_chair.png', model: 'InternVL-2.5' }
+    { src: 'static/image/llava7b_qualitive_chair.webp', model: 'LLaVA-1.5-7B' },
+    { src: 'static/image/llava13b_qualitve_chair.webp', model: 'LLaVA-1.5-13B' },
+    { src: 'static/image/Qwen_qualitive_chair.webp', model: 'Qwen-2.5-VL' },
+    { src: 'static/image/Shikra_qualitive_chair.webp', model: 'Shikra-7B' },
+    { src: 'static/image/Intern_qualitive_chair.webp', model: 'InternVL-2.5' }
   ];
 
   const popeData = [
-    { src: 'static/image/llava7b_qualitive_pope.png', model: 'LLaVA-1.5-7B' },
-    { src: 'static/image/llava_13b_qualitive_pope.png', model: 'LLaVA-1.5-13B' },
-    { src: 'static/image/Qwen_qualitive_pope.png', model: 'Qwen-2.5-VL' },
-    { src: 'static/image/Shikra_qualitive_pope.png', model: 'Shikra-7B' },
-    { src: 'static/image/Intern_qualitive_pope.png', model: 'InternVL-2.5' }
+    { src: 'static/image/llava7b_qualitive_pope.webp', model: 'LLaVA-1.5-7B' },
+    { src: 'static/image/llava_13b_qualitive_pope.webp', model: 'LLaVA-1.5-13B' },
+    { src: 'static/image/Qwen_qualitive_pope.webp', model: 'Qwen-2.5-VL' },
+    { src: 'static/image/Shikra_qualitive_pope.webp', model: 'Shikra-7B' },
+    { src: 'static/image/Intern_qualitive_pope.webp', model: 'InternVL-2.5' }
   ];
 
   function initQualViewer(pickerId, imageId, data) {
