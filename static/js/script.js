@@ -167,10 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('methodTitle').textContent = data.title;
     const fig = document.getElementById('methodFigure');
     fig.innerHTML = `<img src="${data.image}" alt="${data.imageAlt}" loading="lazy" class="analysis-image" />`;
-    document.getElementById('methodCopyBlock').innerHTML = data.html;
-    // Re-typeset MathJax if available
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise([document.getElementById('methodCopyBlock')]);
+    const copyBlock = document.getElementById('methodCopyBlock');
+    copyBlock.innerHTML = data.html;
+    // Re-typeset MathJax only when content contains LaTeX delimiters
+    if (window.MathJax && window.MathJax.typesetPromise && /\\\(/.test(data.html)) {
+      window.MathJax.typesetPromise([copyBlock]);
     }
   };
 
