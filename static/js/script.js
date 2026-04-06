@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       html: `
         <p>
           To investigate how phase-specific token modulation within the vision encoder affects the downstream language model,
-          we analyzed the Visual Attention Ratio (VAR).
+          we analyzed the <a href="https://arxiv.org/abs/2411.16724" target="_blank" style="color: #2563eb; text-decoration: underline;">Visual Attention Ratio (VAR)</a>.
           VAR measures the extent to which generated tokens attend to visual inputs during decoding.
           A higher VAR indicates a stronger reliance on visual information,
           whereas a lower VAR suggests that the language model relies more heavily on language priors.
