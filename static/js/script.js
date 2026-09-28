@@ -79,82 +79,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const analysisData = {
     analysis1: {
-      badge: '01 \u00b7 Attention Dynamics',
-      title: 'Layer-wise Attention Dynamics in Vision Encoders',
-      image: 'static/image/attention_dynamics.webp',
-      imageAlt: 'Analysis 1 visualization',
+      badge: '01 \u00b7 Three-Phase Structure',
+      title: 'Three-Phase Attention Structure in Vision Encoders',
+      image: 'static/image/attention_value_dynamics.webp',
+      imageAlt: 'Three-phase attention structure across vision-encoder layers',
       html: `
         <p>
-          In this study, we explore the internal attention dynamics of vision encoders.
-          Through layer-wise analysis across multiple backbones,
-          we reveal a consistent three-phase structure in how visual information is processed,
-          independent of the model's architecture and scale.
+          We analyze how attention distributions evolve across vision-encoder layers and find a
+          consistent depth-wise pattern across multiple LVLM backbones, independent of architecture
+          or scale.
         </p>
         <p>
-          To quantify attention concentration, we introduced the \\(R^{(l)}\\) metric,
-          defined as the ratio of the maximum attention score to attention entropy.
+          We summarize layer-wise attention concentration as
+          \\(R^{(\\ell)} = \\mathbb{E}_h[M^{(\\ell,h)}] / \\mathbb{E}_h[H^{(\\ell,h)}]\\),
+          the ratio of the maximum attention score to attention entropy.
+          Tracking \\(R^{(\\ell)}\\) across layers reveals three distinct phases:
         </p>
-        <p>Using this metric, we identified three distinct phases:</p>
         <ul>
-          <li><strong>Phase 1 - Diffusion:</strong> In the early layers, attention remains <strong>broadly distributed</strong> across many visual tokens.</li>
-          <li><strong>Phase 2 - Focus:</strong> Entering the intermediate layers, attention becomes <strong>highly concentrated</strong> on a small subset of specific tokens.</li>
-          <li><strong>Phase 3 - Rediffusion:</strong> In the later layers, the previously concentrated attention distribution <strong>spreads out again</strong>.</li>
+          <li><strong>Phase 1 &middot; Diffusion:</strong> in early layers, attention is <strong>broadly distributed</strong> across visual tokens.</li>
+          <li><strong>Phase 2 &middot; Focus:</strong> in intermediate layers, attention becomes <strong>sharply concentrated</strong> on a small subset of tokens, most clearly separating strongly and weakly supported tokens.</li>
+          <li><strong>Phase 3 &middot; Rediffusion:</strong> in later layers, the concentrated pattern <strong>spreads out again</strong>.</li>
         </ul>
       `
     },
     analysis2: {
-      badge: '02 \u00b7 Token Modulation',
-      title: 'Effect of Phase-Specific Token Modulation',
-      image: 'static/image/phase_masking.webp',
-      imageAlt: 'Analysis 2 visualization',
+      badge: '02 \u00b7 Attention\u2013Value Mismatch',
+      title: 'Low-Attention Value Influence in the Focus Phase',
+      image: 'static/image/low_att_value_influence.webp',
+      imageAlt: 'Low-attention value influence across vision-encoder layers',
       html: `
         <p>
-          To identify the critical intervention point affecting hallucination behavior among the three observed phases,
-          we adjusted the influence of "low-attention tokens" during the Diffusion, Focus, and Rediffusion phases
-          by either suppressing them (Masking) or amplifying them (Inverse masking).
+          Attention scores alone do not fully determine a token's downstream influence: self-attention
+          aggregates value vectors weighted by attention, so a token with small attention mass can still
+          shape the output if its value content remains non-negligible after aggregation.
         </p>
-        <p>The experimental results revealed the following key observations:</p>
+        <p>
+          Let \\(\\mathcal{L}^{(\\ell)}\\) be the bottom-25% visual tokens by received attention mass at
+          layer \\(\\ell\\). We track three quantities across layers:
+        </p>
         <ul>
-          <li><strong>Phase 1 & 3 (Diffusion & Rediffusion):</strong> Modifying the influence of low-attention tokens produced only minor variations in the CHAIR metrics. Neither suppressing nor amplifying these tokens resulted in consistent improvements or degradations.</li>
-          <li><strong>Phase 2 (Focus):</strong> Hallucination behavior proved highly sensitive to interventions in this phase. Suppressing low-attention tokens led to a consistent reduction in hallucinations, whereas amplifying their influence (inverse masking) significantly increased hallucination metrics relative to the baseline.</li>
-          <li><strong>Invariant to Masking Strategies:</strong> Importantly, this reduction in hallucination during the Focus Phase was consistently observed across different token selection methods, including both simple rank-based Top-k and diversity-aware DPP strategies. This demonstrates that the phenomenon is robust and invariant to the specific masking methodology used.</li>
+          <li>\\(\\alpha_{\\mathcal{L}}^{(\\ell)}\\): total attention mass assigned to low-attention tokens.</li>
+          <li>\\(\\eta_{\\mathcal{L}}^{(\\ell)}\\): their normalized value contribution to the attention output.</li>
+          <li>\\(G_{\\mathcal{L}}^{(\\ell)} = \\eta_{\\mathcal{L}}^{(\\ell)} / (\\alpha_{\\mathcal{L}}^{(\\ell)} + \\epsilon)\\): value influence per unit attention mass.</li>
         </ul>
+        <br />
+        <p>
+          During the focus phase, \\(\\alpha_{\\mathcal{L}}\\) drops sharply as attention concentrates,
+          while \\(\\eta_{\\mathcal{L}}\\) remains non-negligible. The result is a large \\(G_{\\mathcal{L}}\\):
+          low-attention tokens do <em>not</em> dominate the attention output, but their value content exerts a
+          <strong>disproportionate influence relative to their small attention mass</strong>. This
+          attention\u2013value mismatch motivates the focus-phase value intervention.
+        </p>
       `
     },
     analysis3: {
-      badge: '03 \u00b7 VAR Dynamics',
-      title: 'VAR Dynamics under Phase-Specific Masking',
-      image: 'static/image/VAR.webp',
-      imageAlt: 'Analysis 3 visualization',
+      badge: '03 \u00b7 Phase-wise Value Interventions',
+      title: 'Phase-wise Value Interventions and Hallucination Behavior',
+      image: 'static/image/phase_intervention.webp',
+      imageAlt: 'Phase-wise value interventions and hallucination metrics',
       html: `
         <p>
-          To investigate how phase-specific token modulation within the vision encoder affects the downstream language model,
-          we analyzed the <a href="https://arxiv.org/abs/2411.16724" target="_blank" style="color: #2563eb; text-decoration: underline;">Visual Attention Ratio (VAR)</a>.
-          VAR measures the extent to which generated tokens attend to visual inputs during decoding.
-          A higher VAR indicates a stronger reliance on visual information,
-          whereas a lower VAR suggests that the language model relies more heavily on language priors.
+          To test whether the focus-phase low-attention value signals are tied to hallucination, we
+          run four diagnostic value interventions in each phase and measure CHAIR and F1 on captioning:
         </p>
-        <p>The experimental results revealed the following key observations:</p>
         <ul>
-          <li><strong>Significant VAR Increase in Phase 2:</strong> Masking applied during the focus phase produces a statistically significant increase in the mean VAR compared to the baseline.</li>
-          <li><strong>Marginal Effects in Phase 1 & 3:</strong> In contrast, interventions applied during the diffusion or rediffusion phases result in only marginal changes.</li>
-          <li><strong>Layer-wise Attention Shifts:</strong> VAR heatmaps (layer X head) further reveal increased visual attention in intermediate layers of the language model when focus phase masking is applied.</li>
+          <li><strong>(A)</strong> replace high-attention values with zero vectors,</li>
+          <li><strong>(B)</strong> replace low-attention values with zero vectors,</li>
+          <li><strong>(C)</strong> replace low-attention values with the image-level mean value vector,</li>
+          <li><strong>(D)</strong> replace low-attention values with low-attention values from another image.</li>
+        </ul>
+        <br />
+        <p>The experiments reveal three observations:</p>
+        <ul>
+          <li><strong>Phase-localized effect:</strong> only focus-phase interventions consistently shift hallucination metrics; diffusion- and rediffusion-phase interventions barely move CHAIR.</li>
+          <li><strong>High-attention values carry grounded evidence:</strong> high-attention zero replacement (A) substantially degrades F1, indicating that strongly attended values encode visually grounded signals.</li>
+          <li><strong>Low-attention value content drives hallucination:</strong> the three low-attention interventions (B, C, D) all reduce \\(\\text{CHAIR}_S\\) and \\(\\text{CHAIR}_I\\) while largely preserving F1. Since they share only the effect of <em>neutralizing</em> the original token-specific values, the reduction is not an artifact of any one replacement vector.</li>
         </ul>
       `
     },
     analysis4: {
-      badge: '04 \u00b7 Qualitative Analysis',
-      title: 'Qualitative Analysis using Ground-Truth Captions',
-      image: 'static/image/GT_analysis.webp',
-      imageAlt: 'Analysis 4 visualization',
+      badge: '04 \u00b7 Decoder-Side VAR',
+      title: 'Decoder-Side Visual Attention under Focus-Phase Intervention',
+      image: 'static/image/VAR_intervention.webp',
+      imageAlt: 'Visual Attention Ratio under phase-wise value interventions',
       html: `
         <p>
-          We analyzed the generated descriptions across different masking phases
-          and compared them against Ground-Truth (GT) captions to observe how hallucinations manifest at the sentence level.
+          We further check how focus-phase value intervention affects the language model's reliance on
+          visual tokens during decoding, using the
+          <a href="https://arxiv.org/abs/2411.16724" target="_blank" style="color: #2563eb; text-decoration: underline;">Visual Attention Ratio (VAR)</a>:
+          the total attention mass assigned by a generated token to image tokens at each LM layer-head.
         </p>
         <ul>
-          <li><strong>Inconsistent Outcomes (Phase 1 & 3):</strong> Masking during the diffusion or rediffusion phases fails to effectively control hallucinations, often preserving existing errors or introducing new ungrounded statements.</li>
-          <li><strong>Reliable Mitigation (Phase 2):</strong> In contrast, masking applied specifically to the focus phase consistently replaces hallucinated statements (highlighted in red) with accurate descriptions that tightly align with the actual visual content.</li>
+          <li><strong>Significant VAR increase under focus-phase intervention:</strong> the image-level mean VAR rises from 0.0889 to <strong>0.1472</strong> (\\(p<0.001\\)), while diffusion- and rediffusion-phase interventions yield negligible changes (0.0876 and 0.0886).</li>
+          <li><strong>Broader visual attention in intermediate LM layers:</strong> layer-head VAR heatmaps show increased visual-token attention across multiple intermediate layers and heads after focus-phase intervention.</li>
+          <li><strong>Consistent with hallucination reduction:</strong> together with the CHAIR and token-level teacher-forcing analyses, this indicates that neutralizing focus-phase low-attention values lets the decoder rely more on visual evidence rather than language priors.</li>
         </ul>
       `
     }
@@ -191,66 +209,111 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// -------- 3. Qualitative Results Viewers (CHAIR & POPE) --------
+// -------- 3. Qualitative Results Viewer (CHAIR + POPE combined) --------
 document.addEventListener('DOMContentLoaded', () => {
 
-  const chairData = [
-    { src: 'static/image/llava7b_qualitive_chair.webp', model: 'LLaVA-1.5-7B' },
-    { src: 'static/image/llava13b_qualitve_chair.webp', model: 'LLaVA-1.5-13B' },
-    { src: 'static/image/Qwen_qualitive_chair.webp', model: 'Qwen-2.5-VL' },
-    { src: 'static/image/Shikra_qualitive_chair.webp', model: 'Shikra-7B' },
-    { src: 'static/image/Intern_qualitive_chair.webp', model: 'InternVL-2.5' }
+  const benchmarks = [
+    { key: 'chair', label: 'CHAIR' },
+    { key: 'pope', label: 'POPE' }
   ];
 
-  const popeData = [
-    { src: 'static/image/llava7b_qualitive_pope.webp', model: 'LLaVA-1.5-7B' },
-    { src: 'static/image/llava_13b_qualitive_pope.webp', model: 'LLaVA-1.5-13B' },
-    { src: 'static/image/Qwen_qualitive_pope.webp', model: 'Qwen-2.5-VL' },
-    { src: 'static/image/Shikra_qualitive_pope.webp', model: 'Shikra-7B' },
-    { src: 'static/image/Intern_qualitive_pope.webp', model: 'InternVL-2.5' }
+  const models = [
+    { key: 'llava7b',  label: 'LLaVA-1.5-7B'  },
+    { key: 'llava13b', label: 'LLaVA-1.5-13B' },
+    { key: 'qwen',     label: 'Qwen-2.5-VL'   },
+    { key: 'intern',   label: 'InternVL-2.5'  },
+    { key: 'shikra',   label: 'Shikra-7B'     }
   ];
 
-  function initQualViewer(pickerId, imageId, data) {
-    const picker = document.getElementById(pickerId);
-    const img = document.getElementById(imageId);
+  // Image lookup: imageMap[benchmark][model] = src
+  const imageMap = {
+    chair: {
+      llava7b:  'static/image/llava7b_qualitive_chair.webp',
+      llava13b: 'static/image/llava13b_qualitve_chair.webp',
+      qwen:     'static/image/Qwen_qualitive_chair.webp',
+      shikra:   'static/image/Shikra_qualitive_chair.webp',
+      intern:   'static/image/Intern_qualitive_chair.webp'
+    },
+    pope: {
+      llava7b:  'static/image/llava7b_qualitive_pope.webp',
+      llava13b: 'static/image/llava_13b_qualitive_pope.webp',
+      qwen:     'static/image/Qwen_qualitive_pope.webp',
+      shikra:   'static/image/Shikra_qualitive_pope.webp',
+      intern:   'static/image/Intern_qualitive_pope.webp'
+    }
+  };
 
-    if (!picker || !img) return;
+  const benchPicker = document.getElementById('qualPickerBench');
+  const modelPicker = document.getElementById('qualPickerModel');
+  const img = document.getElementById('qualImage');
+  if (!benchPicker || !modelPicker || !img) return;
 
-    // Build tab buttons
-    data.forEach((item, i) => {
+  let currentBench = benchmarks[0].key;
+  let currentModel = models[0].key;
+
+  function buildPicker(picker, items, currentKey) {
+    items.forEach(item => {
       const btn = document.createElement('button');
       btn.role = 'tab';
       btn.className = 'chip';
-      btn.textContent = item.model;
-      btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-      btn.dataset.index = i;
+      btn.textContent = item.label;
+      btn.dataset.key = item.key;
+      btn.setAttribute('aria-selected', item.key === currentKey ? 'true' : 'false');
       picker.appendChild(btn);
-    });
-
-    // Set initial image
-    img.src = data[0].src;
-    img.alt = data[0].model + ' qualitative result';
-
-    // Tab click handler
-    picker.addEventListener('click', (e) => {
-      const btn = e.target.closest('[role="tab"]');
-      if (!btn) return;
-      const idx = parseInt(btn.dataset.index, 10);
-
-      // Update tab UI
-      picker.querySelectorAll('[role="tab"]').forEach(b => b.setAttribute('aria-selected', 'false'));
-      btn.setAttribute('aria-selected', 'true');
-
-      // Fade out, swap image, fade in
-      img.classList.add('fade-out');
-      setTimeout(() => {
-        img.src = data[idx].src;
-        img.alt = data[idx].model + ' qualitative result';
-        img.classList.remove('fade-out');
-      }, 250);
     });
   }
 
-  initQualViewer('qualPickerChair', 'qualImageChair', chairData);
-  initQualViewer('qualPickerPope', 'qualImagePope', popeData);
+  function setSelected(picker, key) {
+    picker.querySelectorAll('[role="tab"]').forEach(b => {
+      b.setAttribute('aria-selected', b.dataset.key === key ? 'true' : 'false');
+    });
+  }
+
+  function getBenchLabel(key) {
+    const b = benchmarks.find(x => x.key === key);
+    return b ? b.label : key;
+  }
+
+  function getModelLabel(key) {
+    const m = models.find(x => x.key === key);
+    return m ? m.label : key;
+  }
+
+  function updateImage() {
+    const src = imageMap[currentBench] && imageMap[currentBench][currentModel];
+    if (!src) return;
+    img.classList.add('fade-out');
+    setTimeout(() => {
+      img.src = src;
+      img.alt = `${getModelLabel(currentModel)} qualitative result on ${getBenchLabel(currentBench)}`;
+      img.classList.remove('fade-out');
+    }, 250);
+  }
+
+  buildPicker(benchPicker, benchmarks, currentBench);
+  buildPicker(modelPicker, models, currentModel);
+
+  // Initial image (no fade)
+  img.src = imageMap[currentBench][currentModel];
+  img.alt = `${getModelLabel(currentModel)} qualitative result on ${getBenchLabel(currentBench)}`;
+
+  benchPicker.addEventListener('click', (e) => {
+    const btn = e.target.closest('[role="tab"]');
+    if (!btn) return;
+    const key = btn.dataset.key;
+    if (key === currentBench) return;
+    currentBench = key;
+    setSelected(benchPicker, key);
+    updateImage();
+  });
+
+  modelPicker.addEventListener('click', (e) => {
+    const btn = e.target.closest('[role="tab"]');
+    if (!btn) return;
+    const key = btn.dataset.key;
+    if (key === currentModel) return;
+    currentModel = key;
+    setSelected(modelPicker, key);
+    updateImage();
+  });
 });

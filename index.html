@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Focus Matters: Phase-Aware Suppression for Hallucination in Vision-Language Models</title>
-    <meta name="description" content="Focus Matters: Phase-Aware Suppression for Hallucination in Vision-Language Models" />
+    <title>Focus Matters: Attention-Value Dynamics for Hallucination Mitigation in Vision-Language Models</title>
+    <meta name="description" content="Focus Matters: Attention-Value Dynamics for Hallucination Mitigation in Vision-Language Models" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -27,8 +27,7 @@
           <a href="#abstract" data-ease>Abstract</a>
           <a href="#analysis" data-ease>Analysis</a>
           <a href="#results" data-ease>Results</a>
-          <a href="#qualitative-chair" data-ease>CHAIR Results</a>
-          <a href="#qualitative-pope" data-ease>POPE Results</a>
+          <a href="#qualitative" data-ease>Qualitative Results</a>
         </nav>
       </div>
     </aside>
@@ -46,20 +45,23 @@
       <section id="hero" class="section hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="hero-inner">
-          <h1 class="title"><span class="title-highlight">Focus Matters</span>: Phase-Aware Suppression for Hallucination in Vision-Language Models</h1>
+          <h1 class="title"><span class="title-highlight">Focus Matters</span>: Attention-Value Dynamics for Hallucination Mitigation in Vision-Language Models</h1>
           <div class="author-block">
             <p class="author-list">
-              <a href="https://www.pnu-cvsp.com/members/sohyeon" target="_blank" rel="noopener" class="author-link">Sohyeon Kim<sup>1</sup></a>,
-              <a href="https://www.pnu-cvsp.com/members/sang-yeon" target="_blank" rel="noopener" class="author-link">Sang Yeon Yoon<sup>2</sup></a>,
-              <a href="https://www.pnu-cvsp.com/prof" target="_blank" rel="noopener" class="author-link">Kyeongbo Kong<sup>1&dagger;</sup></a>
+              <a class="author-link" href="https://www.pnu-cvsp.com/members/sohyeon" title="Sohyeon Kim">Sohyeon Kim<sup>1</sup></a>
+              <a class="author-link" href="https://www.pnu-cvsp.com/members/sang-yeon" title="Sang Yeon Yoon">Sang Yeon Yoon<sup>2</sup></a>
+              <a class="author-link" href="https://www.pnu-cvsp.com/prof" title="Kyeongbo Kong">Kyeongbo Kong<sup>1†</sup></a>
             </p>
-            <p class="affiliation">Pusan National University<sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pukyong National University<sup>2</sup></p>
-            <p class="affiliation note"><sup>&dagger;</sup>Corresponding author</p>
+            <p class="affiliation">
+              <span><sup>1</sup>Pusan National University</span>
+              <span><sup>2</sup>Pukyong National University</span>
+            </p>
+            <p class="affiliation note"><span><sup>†</sup>Corresponding author</span></p>
           </div>
-          <div class="meta"></div>
+          <div class="meta">NeurIPS 2026</div>
           <div class="cta">
-            <a class="btn btn-arxiv" href="https://arxiv.org/abs/2604.03556" target="_blank" rel="noopener">arXiv</a>
-            <a class="btn btn-code" href="https://github.com/cvsp-lab/FocusMatters/tree/main" target="_blank" rel="noopener">Code</a>
+            <a class="btn btn-arxiv is-disabled" href="#" aria-disabled="true" tabindex="-1" title="Not available during anonymous review"><!-- arXiv icon: Simple Icons (CC0 1.0) --><svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.8423 0a1.0037 1.0037 0 0 0-.922.6078c-.1536.3687-.0438.6275.2938 1.1113l6.9185 8.3597-1.0223 1.1058a1.0393 1.0393 0 0 0 .003 1.4229l1.2292 1.3135-5.4391 6.4444c-.2803.299-.4538.823-.2971 1.1986a1.0253 1.0253 0 0 0 .9585.635.9133.9133 0 0 0 .6891-.3405l5.783-6.126 7.4902 8.0051a.8527.8527 0 0 0 .6835.2597.9575.9575 0 0 0 .8777-.6138c.1577-.377-.017-.7502-.306-1.1407l-7.0518-8.3418 1.0632-1.13a.9626.9626 0 0 0 .0089-1.3165L4.6336.4639s-.3733-.4535-.768-.463zm0 .272h.0166c.2179.0052.4874.2715.5644.3639l.005.006.0052.0055 10.169 10.9905a.6915.6915 0 0 1-.0072.945l-1.0666 1.133-1.4982-1.7724-8.5994-10.39c-.3286-.472-.352-.6183-.2592-.841a.7307.7307 0 0 1 .6704-.4401Zm14.341 1.5701a.877.877 0 0 0-.6554.2418l-5.6962 6.1584 1.6944 1.8319 5.3089-6.5138c.3251-.4335.479-.6603.3247-1.0292a1.1205 1.1205 0 0 0-.9763-.689zm-7.6557 12.2823 1.3186 1.4135-5.7864 6.1295a.6494.6494 0 0 1-.4959.26.7516.7516 0 0 1-.706-.4669c-.1119-.2682.0359-.6864.2442-.9083l.0051-.0055.0047-.0055z"/></svg>arXiv</a>
+            <a class="btn btn-openreview is-disabled" href="#" aria-disabled="true" tabindex="-1" title="Not available yet"><!-- Review icon: Lucide message-square-text (ISC License, Copyright (c) Lucide Contributors) --><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M7 11h10"/><path d="M7 15h6"/><path d="M7 7h8"/></svg>OpenReview</a>
           </div>
         </div>
       </section>
@@ -68,29 +70,31 @@
       <section id="abstract" class="section container reveal">
         <div class="section-head">
           <h2>Abstract</h2>
+          <br />
         </div>
         <div class="abstract-card">
           <p>
             Large Vision-Language Models (LVLMs) have achieved impressive progress in multimodal reasoning,
-             yet they remain prone to object hallucinations, generating descriptions of objects that are not present
-            in the input image. Recent approaches attempt to mitigate hallucinations
-            by suppressing unreliable visual signals in the vision encoder, but many
-            rely on iterative optimization for each input, resulting in substantial
-            inference latency. In this work, we investigate the internal attention dy-
-            namics of vision encoders in LVLMs and identify a consistent three-phase
-            structure of visual information processing: diffusion, focus, and rediffusion.
-             Our analysis reveals that hallucination behavior is particularly sensitive
-              to tokens receiving low attention during the focus phase. Motivated
-            by this observation, we propose a lightweight inference-time intervention
-             that selectively suppresses such tokens during the focus phase. The
-            method operates in a training-free manner using statistics from a single forward pass and employs a Determinantal Point Process (DPP) to
-            preserve diverse visual cues while filtering redundant tokens. Extensive
-            experiments across multiple LVLM backbones and decoding strategies
-            demonstrate that the proposed approach consistently reduces hallucination
-             metrics while maintaining competitive caption quality. Moreover,
-            compared to adversarial uncertainty estimation methods, our approach
-            achieves comparable hallucination mitigation with negligible additional
-            inference latency.
+            yet they remain prone to object hallucinations, generating descriptions of objects that are not
+            present in the input image. In this work, we investigate hallucination from the perspective of
+            attention-value dynamics inside LVLM vision encoders. We identify a consistent three-phase
+            structure of visual processing&mdash;<strong>diffusion</strong>, <strong>focus</strong>, and
+            <strong>rediffusion</strong>&mdash;and show that the focus phase is where attention most clearly
+            separates strongly and weakly supported visual tokens. However, low attention does not necessarily
+            imply negligible downstream influence: low-attention tokens in the focus phase can still exert
+            non-negligible value-side influence on the attention output relative to their small attention mass.
+            Through controlled phase-wise value interventions, we find that hallucination behavior is
+            particularly sensitive to the value content of low-attention tokens during this phase. Replacing
+            or neutralizing these values reduces hallucination metrics while largely preserving grounded object
+            evidence. A token-level teacher-forcing analysis further shows that the intervention reduces the
+            probability of hallucinated object tokens with much smaller effects on ground-truth object tokens.
+            In addition, Visual Attention Ratio (VAR) analysis shows that focus-phase intervention is
+            accompanied by increased attention to visual tokens during decoding. Based on these observations,
+            we instantiate a simple training-free inference-time intervention that replaces focus-phase
+            low-attention values with an image-level mean value vector using statistics from a single forward
+            pass. Experiments across multiple LVLM backbones demonstrate that this analysis-derived
+            intervention reduces object hallucination with negligible additional runtime and remains
+            compatible with existing inference-time mitigation methods.
           </p>
         </div>
       </section>
@@ -99,7 +103,7 @@
       <section id="analysis" class="section container reveal">
         <div class="section-head">
           <h2>Analysis</h2>
-          <p>Explore each analysis of visual attention dynamics in LVLMs.</p>
+          <br />
         </div>
         <div class="method-experience glass">
           <div class="method-hint">Hover over each analysis to explore our findings</div>
@@ -123,27 +127,27 @@
           </div>
           <div class="method-detail" id="methodDetail">
             <div id="methodContent" class="method-content fade-in">
-              <p class="method-detail-eyebrow" id="methodBadge">01 &middot; Attention Dynamics</p>
-              <h3 id="methodTitle">Layer-wise Attention Dynamics in Vision Encoders</h3>
+              <p class="method-detail-eyebrow" id="methodBadge">01 &middot; Three-Phase Structure</p>
+              <h3 id="methodTitle">Three-Phase Attention Structure in Vision Encoders</h3>
               <figure class="analysis-figure" id="methodFigure">
-                <img src="static/image/attention_dynamics.webp" alt="Analysis 1 visualization" loading="lazy" class="analysis-image" />
+                <img src="static/image/attention_value_dynamics.webp" alt="Three-phase attention structure across vision-encoder layers" loading="lazy" class="analysis-image" />
               </figure>
               <div id="methodCopyBlock">
                 <p>
-                  In this study, we explore the internal attention dynamics of vision encoders.
-                  Through layer-wise analysis across multiple backbones,
-                  we reveal a consistent three-phase structure in how visual information is processed,
-                  independent of the model's architecture and scale.
+                  We analyze how attention distributions evolve across vision-encoder layers and find a
+                  consistent depth-wise pattern across multiple LVLM backbones, independent of architecture
+                  or scale.
                 </p>
                 <p>
-                  To quantify attention concentration, we introduced the \(R^{(l)}\) metric,
-                  defined as the ratio of the maximum attention score to attention entropy.
+                  We summarize layer-wise attention concentration as
+                  \(R^{(\ell)} = \mathbb{E}_h[M^{(\ell,h)}] / \mathbb{E}_h[H^{(\ell,h)}]\),
+                  the ratio of the maximum attention score to attention entropy.
+                  Tracking \(R^{(\ell)}\) across layers reveals three distinct phases:
                 </p>
-                <p>Using this metric, we identified three distinct phases:</p>
                 <ul id="methodBullets">
-                  <li><strong>Phase 1 - Diffusion:</strong> In the early layers, attention remains <strong>broadly distributed</strong> across many visual tokens.</li>
-                  <li><strong>Phase 2 - Focus:</strong> Entering the intermediate layers, attention becomes <strong>highly concentrated</strong> on a small subset of specific tokens.</li>
-                  <li><strong>Phase 3 - Rediffusion:</strong> In the later layers, the previously concentrated attention distribution <strong>spreads out again</strong>.</li>
+                  <li><strong>Phase 1 &middot; Diffusion:</strong> in early layers, attention is <strong>broadly distributed</strong> across visual tokens.</li>
+                  <li><strong>Phase 2 &middot; Focus:</strong> in intermediate layers, attention becomes <strong>sharply concentrated</strong> on a small subset of tokens, most clearly separating strongly and weakly supported tokens.</li>
+                  <li><strong>Phase 3 &middot; Rediffusion:</strong> in later layers, the concentrated pattern <strong>spreads out again</strong>.</li>
                 </ul>
               </div>
             </div>
@@ -154,30 +158,27 @@
       <!-- ==================== RESULTS SECTION ==================== -->
       <section id="results" class="section container reveal">
         <div class="section-head">
-          <h2>Results</h2>
-          <p>Quantitative evaluation of our phase-aware suppression method.</p>
+          <h2>Quantitative Results</h2>
+          <br />
         </div>
 
-        <!-- DPP Masking Setup -->
-        <article class="exp-card exp-card-wide">
+        <!-- Experimental Setup -->
+        <article class="exp-card setup-card">
           <div class="exp-card-head">
             <div>
               <span class="exp-kicker">Experimental Setup</span>
-              <h3>DPP Masking</h3>
+              <h3>Value Interventions</h3>
             </div>
           </div>
           <div class="results-text-content">
+            <br />
             <p>
-              Simply discarding low-attention tokens based on a strict ranking (e.g. Top-K) risks removing potentially useful visual cues,
-              which can degrade the model's overall object recognition capabilities.
+              We evaluate four LVLM backbones (LLaVA-1.5-7B, LLaVA-1.5-13B, Qwen-2.5-VL, InternVL-2.5)
+              on CHAIR, POPE and MME, using greedy decoding. Following the analysis in the previous section,
+              our intervention replaces the value vectors of the bottom-25% low-attention tokens during the
+              focus phase with an image-level mean value vector, computed from a single forward pass.
+              <b>No training, gradient updates, or iterative optimization is required.</b>
             </p>
-            <p>
-              To overcome this, we employ a Determinantal Point Process (DPP)-based masking technique.
-              By jointly modeling token importance (derived from attention scores) and token diversity (based on semantic similarity),
-              the DPP approach allows us to selectively suppress redundant, noise-inducing tokens while effectively preserving a diverse set of essential visual features.
-              For more details on our DPP masking method, please refer to the main paper.
-            </p>
-            <p>All subsequent experimental results were conducted using this DPP masking technique.</p>
           </div>
         </article>
 
@@ -186,23 +187,24 @@
           <div class="exp-card-head">
             <div>
               <span class="exp-kicker">Quantitative</span>
-              <h3>Hallucination Mitigation</h3>
+              <h3>Hallucination Mitigation &amp; Inference Efficiency</h3>
             </div>
           </div>
           <div class="results-text-content">
+            <br />
             <p>
-              We compared our approach with the original baseline and the
-              <a href="https://arxiv.org/abs/2510.09008" target="_blank" style="color: #2563eb; text-decoration: underline;">AUE</a>
-               method across various decoding strategies on the CHAIR and POPE benchmarks.
+              We compare against the original models and
+              <a href="https://arxiv.org/abs/2510.09008" target="_blank" style="color: #2563eb; text-decoration: underline;">AUE</a>,
+              which estimates unreliable visual tokens via iterative PGD-based optimization.
             </p>
             <ul>
-              <li><strong>Consistent Hallucination Reduction:</strong> Effectively lowers \(CHAIR_S\) and \(CHAIR_I\) metrics, matching or exceeding the computationally expensive AUE baseline.</li>
-              <li><strong>Preserved Visual Recognition:</strong> Maintains or improves F1 and POPE scores, proving that essential visual information remains intact.</li>
-              <li><strong>Broad Compatibility:</strong> Seamlessly integrates with existing decoder-level methods to further drive down hallucinations.</li>
+              <li><strong>Consistent hallucination reduction:</strong> lowers \(\text{CHAIR}_S\) and \(\text{CHAIR}_I\) across all four backbones, comparable to AUE while generally preserving caption fidelity (F1) better.</li>
+              <li><strong>Preserved visual recognition:</strong> maintains or improves F1 and POPE accuracy across Random, Popular, and Adversarial splits, indicating that grounded visual evidence is retained.</li>
+              <li><strong>Negligible runtime overhead:</strong> on Qwen-2.5-VL, AUE inflates inference from <strong>2.60s</strong> to <strong>33.46s</strong> (~12.9&times; slower); ours runs in <strong>2.71s</strong>. On InternVL-2.5, AUE takes <strong>41.29s</strong> vs. our <strong>2.44s</strong> (~16.9&times; slower).</li>
             </ul>
           </div>
           <figure class="results-figure">
-            <img src="static/image/CHAIR_POPE.webp" alt="CHAIR and POPE benchmark results" loading="lazy" class="results-image" />
+            <img src="static/image/CHAIR_POPE_intervention.webp" alt="CHAIR and POPE benchmark results" loading="lazy" class="results-image" />
           </figure>
         </article>
 
@@ -211,51 +213,45 @@
           <div class="exp-card-head">
             <div>
               <span class="exp-kicker">Quantitative</span>
-              <h3>Inference Efficiency</h3>
+              <h3>General Capability on MME</h3>
             </div>
           </div>
           <div class="results-text-content">
+            <br />
             <p>
-              We compared the inference latency of our approach against both the original baseline and the AUE method to evaluate its practical efficiency.
+              Beyond hallucination-specific benchmarks, we check on MME whether the intervention disturbs
+              broader multimodal capabilities. We compare per-category MME scores on Qwen-2.5-VL and
+              InternVL-2.5.
             </p>
             <ul>
-              <li><strong>Single Forward Pass Efficiency:</strong> By operating entirely in a single forward pass, our method bypasses the computationally heavy iterative optimization of AUE, maintaining generation speeds almost identical to the original baseline.</li>
+              <li><strong>Profile largely preserved:</strong> the radar shapes follow the original models across both perception-oriented categories (existence, count, position, color, OCR, scene, etc.) and cognition-oriented categories (commonsense reasoning, numerical calculation, text translation, code reasoning).</li>
+              <li><strong>No global suppression of visual signals:</strong> hallucination reduction on CHAIR and POPE is not achieved at the cost of degraded general multimodal performance.</li>
             </ul>
           </div>
           <figure class="results-figure">
-            <img src="static/image/inference_efficency.webp" alt="Inference efficiency comparison" loading="lazy" class="results-image" />
+            <img src="static/image/MME.webp" alt="MME benchmark results" loading="lazy" class="results-image" />
           </figure>
         </article>
       </section>
 
-      <!-- ==================== QUALITATIVE RESULTS: CHAIR ==================== -->
-      <section id="qualitative-chair" class="section container reveal">
+      <!-- ==================== QUALITATIVE RESULTS ==================== -->
+      <section id="qualitative" class="section container reveal">
         <div class="section-head">
-          <h2>Qualitative Results: CHAIR</h2>
-          <p>Select a model to view its qualitative results on the CHAIR benchmark.</p>
+          <h2>Qualitative Results</h2>
+          <br />
         </div>
-        <div class="qual-viewer glass" id="qualViewerChair">
+        <div class="qual-viewer glass" id="qualViewer">
+          <div class="method-hint">Pick a benchmark and a backbone to compare</div>
           <div class="variant-picker-wrap">
-            <div class="variant-picker qual-picker" id="qualPickerChair" role="tablist" aria-label="Select model for CHAIR"></div>
+            <span class="variant-picker-label">Benchmark</span>
+            <div class="variant-picker qual-picker" id="qualPickerBench" role="tablist" aria-label="Select benchmark"></div>
+          </div>
+          <div class="variant-picker-wrap">
+            <span class="variant-picker-label">Model</span>
+            <div class="variant-picker qual-picker" id="qualPickerModel" role="tablist" aria-label="Select model"></div>
           </div>
           <figure class="qual-figure">
-            <img id="qualImageChair" src="" alt="CHAIR qualitative result" class="qual-image" />
-          </figure>
-        </div>
-      </section>
-
-      <!-- ==================== QUALITATIVE RESULTS: POPE ==================== -->
-      <section id="qualitative-pope" class="section container reveal">
-        <div class="section-head">
-          <h2>Qualitative Results: POPE</h2>
-          <p>Select a model to view its qualitative results on the POPE benchmark.</p>
-        </div>
-        <div class="qual-viewer glass" id="qualViewerPope">
-          <div class="variant-picker-wrap">
-            <div class="variant-picker qual-picker" id="qualPickerPope" role="tablist" aria-label="Select model for POPE"></div>
-          </div>
-          <figure class="qual-figure">
-            <img id="qualImagePope" src="" alt="POPE qualitative result" class="qual-image" />
+            <img id="qualImage" src="" alt="Qualitative result" class="qual-image" />
           </figure>
         </div>
       </section>
@@ -264,25 +260,10 @@
       <section id="bibtex" class="section container reveal">
         <h2>BibTeX</h2>
         <div class="code-block">
-          <pre><code>@article{kim2026focus,
-  title={Focus Matters: Phase-Aware Suppression for Hallucination in Vision-Language Models},
-  author={Sohyeon Kim, Sang Yeon Yoon, Kyeongbo Kong},
-  journal={arXiv preprint arXiv:2604.03556},
-  year={2026},
-}</code></pre>
+          <pre><code></code></pre>
         </div>
       </section>
 
-      <!-- ==================== FOOTER ==================== -->
-      <footer class="footer container">
-        <div class="footer-links">
-          <a href="https://github.com/cvsp-lab/FocusMatters/tree/main" aria-label="GitHub" class="footer-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1 3 .8.1-.7.3-1 .6-1.3-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3 0 0 1-.3 3.2 1.2a10.9 10.9 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.7.1 3 .8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.7 1 .7 2v3c0 .3.2.7.8.6A12 12 0 0 0 12 .5"/>
-            </svg>
-          </a>
-        </div>
-      </footer>
     </main>
 
     <script src="static/js/script.js"></script>
