@@ -1,0 +1,4 @@
+Metadata-Version: 2.1
+Name: tokenizers
+Version: 0.21.4
+Summary: Bundled stub metadata so importlib.metadata reports the PYTHONPATH-bundled tokenizers version.
