@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Focus Matters: Attention-Value Dynamics for Efficient Hallucination Mitigation in Vision-Language Models</title>
+    <meta name="description" content="Focus Matters: Attention-Value Dynamics for Efficient Hallucination Mitigation in Vision-Language Models" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fredoka:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body class="sidebar-collapsed">
+
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="false">
+      <span class="arrow" aria-hidden="true"></span>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner glass">
+        <div class="brand">FocusMatters</div>
+        <nav class="toc">
+          <a href="#hero" data-ease>Teaser</a>
+          <a href="#abstract" data-ease>Abstract</a>
+          <a href="#analysis" data-ease>Analysis</a>
+          <a href="#results" data-ease>Results</a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+
+    <main class="main-shell">
+
+      <!-- ==================== HERO SECTION ==================== -->
+      <section id="hero" class="section hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <h1 class="title"><span class="title-highlight">Focus Matters</span>: Attention-Value Dynamics for Efficient Hallucination Mitigation in Vision-Language Models</h1>
+          <div class="author-block">
+            <p class="author-list">
+              <a class="author-link" href="https://www.pnu-cvsp.com/members/sohyeon" title="Sohyeon Kim">Sohyeon Kim<sup>1</sup></a>
+              <a class="author-link" href="https://www.pnu-cvsp.com/members/sang-yeon" title="Sang Yeon Yoon">Sang Yeon Yoon<sup>2</sup></a>
+              <a class="author-link" href="https://www.pnu-cvsp.com/prof" title="Kyeongbo Kong">Kyeongbo Kong<sup>1,3†</sup></a>
+            </p>
+            <p class="affiliation">
+              <span><sup>1</sup>Pusan National University</span>
+              <span><sup>2</sup>Pukyong National University</span>
+              <span><sup>3</sup>AI Collaboration Hub Research Center, Pusan National University</span>
+            </p>
+            <p class="affiliation note"><span><sup>†</sup>Corresponding author</span></p>
+          </div>
+          <div class="meta">NeurIPS 2026</div>
+          <div class="cta">
+            <a class="btn btn-arxiv is-disabled" href="#" aria-disabled="true" tabindex="-1" title="Not available yet"><!-- arXiv icon: Simple Icons (CC0 1.0) --><svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.8423 0a1.0037 1.0037 0 0 0-.922.6078c-.1536.3687-.0438.6275.2938 1.1113l6.9185 8.3597-1.0223 1.1058a1.0393 1.0393 0 0 0 .003 1.4229l1.2292 1.3135-5.4391 6.4444c-.2803.299-.4538.823-.2971 1.1986a1.0253 1.0253 0 0 0 .9585.635.9133.9133 0 0 0 .6891-.3405l5.783-6.126 7.4902 8.0051a.8527.8527 0 0 0 .6835.2597.9575.9575 0 0 0 .8777-.6138c.1577-.377-.017-.7502-.306-1.1407l-7.0518-8.3418 1.0632-1.13a.9626.9626 0 0 0 .0089-1.3165L4.6336.4639s-.3733-.4535-.768-.463zm0 .272h.0166c.2179.0052.4874.2715.5644.3639l.005.006.0052.0055 10.169 10.9905a.6915.6915 0 0 1-.0072.945l-1.0666 1.133-1.4982-1.7724-8.5994-10.39c-.3286-.472-.352-.6183-.2592-.841a.7307.7307 0 0 1 .6704-.4401Zm14.341 1.5701a.877.877 0 0 0-.6554.2418l-5.6962 6.1584 1.6944 1.8319 5.3089-6.5138c.3251-.4335.479-.6603.3247-1.0292a1.1205 1.1205 0 0 0-.9763-.689zm-7.6557 12.2823 1.3186 1.4135-5.7864 6.1295a.6494.6494 0 0 1-.4959.26.7516.7516 0 0 1-.706-.4669c-.1119-.2682.0359-.6864.2442-.9083l.0051-.0055.0047-.0055z"/></svg>arXiv</a>
+            <a class="btn btn-openreview is-disabled" href="#" aria-disabled="true" tabindex="-1" title="Not available yet"><!-- Review icon: Lucide message-square-text (ISC License, Copyright (c) Lucide Contributors) --><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M7 11h10"/><path d="M7 15h6"/><path d="M7 7h8"/></svg>OpenReview</a>
+          </div>
+          <div class="cta cta-lab">
+            <a class="btn btn-lab" href="https://www.pnu-cvsp.com/" target="_blank" rel="noopener" title="Computer Vision &amp; Signal Processing Lab (CVSP), Pusan National University"><!-- Lab icon: Lucide flask-conical (ISC License, Copyright (c) Lucide Contributors) --><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>Visit Our Lab!<!-- Arrow icon: Lucide arrow-up-right (ISC License, Copyright (c) Lucide Contributors) --><svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ABSTRACT SECTION ==================== -->
+      <section id="abstract" class="section container reveal">
+        <div class="section-head">
+          <h2>Abstract</h2>
+          <br />
+        </div>
+        <div class="abstract-card">
+          <p>
+            Large Vision-Language Models (LVLMs) have achieved impressive progress in multimodal reasoning,
+            yet they remain prone to object hallucinations, generating descriptions of objects that are not
+            present in the input image. In this work, we investigate hallucination from the perspective of
+            attention-value dynamics inside LVLM vision encoders. We identify a consistent three-phase
+            structure of visual processing&mdash;<strong>diffusion</strong>, <strong>focus</strong>, and
+            <strong>rediffusion</strong>&mdash;and show that the focus phase is where attention most clearly
+            separates strongly and weakly supported visual tokens. However, low attention does not necessarily
+            imply negligible downstream influence: low-attention tokens in the focus phase can still exert
+            non-negligible value-side influence on the attention output relative to their small attention mass.
+            Through controlled phase-wise value interventions, we find that hallucination behavior is
+            particularly sensitive to the value content of low-attention tokens during this phase. Replacing
+            or neutralizing these values reduces hallucination metrics while largely preserving grounded object
+            evidence. A token-level teacher-forcing analysis further shows that the intervention reduces the
+            probability of hallucinated object tokens with much smaller effects on ground-truth object tokens.
+            In addition, Visual Attention Ratio (VAR) analysis shows that focus-phase intervention is
+            accompanied by increased attention to visual tokens during decoding. Based on these observations,
+            we instantiate a simple training-free inference-time intervention that replaces focus-phase
+            low-attention values with an image-level mean value vector using statistics from a single forward
+            pass. Experiments across multiple LVLM backbones demonstrate that this analysis-derived
+            intervention reduces object hallucination with negligible additional runtime and remains
+            compatible with existing inference-time mitigation methods.
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================== ANALYSIS SECTION (Method Tabs) ==================== -->
+      <section id="analysis" class="section container reveal">
+        <div class="section-head">
+          <h2>Empirical Analysis</h2>
+          <br />
+        </div>
+        <div class="method-experience glass">
+          <div class="method-hint">Hover over each analysis to explore our findings</div>
+          <div class="method-track" role="tablist" aria-label="Analysis components">
+            <button class="method-node active" data-method="analysis1">
+              <span class="method-node-dot"></span>
+              <span class="method-node-label">Analysis 1</span>
+            </button>
+            <button class="method-node" data-method="analysis2">
+              <span class="method-node-dot"></span>
+              <span class="method-node-label">Analysis 2</span>
+            </button>
+            <button class="method-node" data-method="analysis3">
+              <span class="method-node-dot"></span>
+              <span class="method-node-label">Analysis 3</span>
+            </button>
+            <button class="method-node" data-method="analysis4">
+              <span class="method-node-dot"></span>
+              <span class="method-node-label">Analysis 4</span>
+            </button>
+          </div>
+          <div class="method-detail" id="methodDetail">
+            <div id="methodContent" class="method-content fade-in">
+              <p class="method-detail-eyebrow" id="methodBadge">01 &middot; Attention&ndash;Value Dynamics</p>
+              <h3 id="methodTitle">Attention&ndash;Value Dynamics Across Vision-Encoder Layers</h3>
+              <figure class="analysis-figure" id="methodFigure">
+                <img src="static/image/attention_value_dynamics_combined.webp" alt="Three-phase attention structure and low-attention value influence across vision-encoder layers" loading="lazy" class="analysis-image" />
+              </figure>
+              <div id="methodCopyBlock">
+                <p>
+                  <strong>(a) Three-phase structure.</strong> We summarize layer-wise attention concentration as
+                  \(R^{(\ell)} = \mathbb{E}_h[M^{(\ell,h)}] / \mathbb{E}_h[H^{(\ell,h)}]\),
+                  the ratio of the maximum attention score to attention entropy.
+                  Tracking \(R^{(\ell)}\) across layers reveals a consistent three-phase pattern across LVLM backbones:
+                </p>
+                <ul id="methodBullets">
+                  <li><strong>Phase 1 &middot; Diffusion:</strong> in early layers, attention is <strong>broadly distributed</strong> across visual tokens.</li>
+                  <li><strong>Phase 2 &middot; Focus:</strong> in intermediate layers, attention becomes <strong>sharply concentrated</strong> on a small subset of tokens, most clearly separating strongly and weakly supported tokens.</li>
+                  <li><strong>Phase 3 &middot; Rediffusion:</strong> in later layers, the concentrated pattern <strong>spreads out again</strong>.</li>
+                </ul>
+                <br />
+                <p>
+                  <strong>(b) Low-attention value influence.</strong> However, low attention does not necessarily imply
+                  negligible downstream influence. Let \(\mathcal{L}^{(\ell)}\) be the bottom-25% visual tokens by
+                  received attention mass at layer \(\ell\). We track three quantities across layers:
+                </p>
+                <ul>
+                  <li>\(\alpha_{\mathcal{L}}^{(\ell)}\): total attention mass assigned to low-attention tokens.</li>
+                  <li>\(\eta_{\mathcal{L}}^{(\ell)}\): their normalized value contribution to the attention output.</li>
+                  <li>\(G_{\mathcal{L}}^{(\ell)} = \eta_{\mathcal{L}}^{(\ell)} / (\alpha_{\mathcal{L}}^{(\ell)} + \epsilon)\): value influence per unit attention mass.</li>
+                </ul>
+                <br />
+                <p>
+                  During the focus phase, \(\alpha_{\mathcal{L}}\) drops sharply as attention concentrates,
+                  while \(\eta_{\mathcal{L}}\) remains non-negligible. The result is a large \(G_{\mathcal{L}}\):
+                  low-attention tokens do <em>not</em> dominate the attention output, but their value content exerts a
+                  <strong>disproportionate influence relative to their small attention mass</strong>. This
+                  attention&ndash;value mismatch motivates the phase-wise value intervention analysis.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== RESULTS SECTION ==================== -->
+      <section id="results" class="section container reveal">
+        <div class="section-head">
+          <h2>Experimental Results</h2>
+          <br />
+        </div>
+
+        <!-- Experimental Setup -->
+        <article class="exp-card setup-card">
+          <div class="exp-card-head">
+            <div>
+              <span class="exp-kicker">Experimental Setup</span>
+              <h3>Value Interventions</h3>
+            </div>
+          </div>
+          <div class="results-text-content">
+            <br />
+            <p>
+              We evaluate four LVLM backbones (LLaVA-1.5-7B, LLaVA-1.5-13B, Qwen-2.5-VL, InternVL-2.5)
+              on CHAIR, POPE, MMHal-Bench and MME, using greedy decoding. Following the analysis in the previous section,
+              our intervention replaces the value vectors of the bottom-25% low-attention tokens during the
+              focus phase with an image-level mean value vector, computed from a single forward pass.
+              <b>No training, gradient updates, or iterative optimization is required.</b>
+            </p>
+          </div>
+        </article>
+
+        <!-- Result 1 -->
+        <article class="exp-card exp-card-wide" style="margin-top: 24px;">
+          <div class="exp-card-head">
+            <div>
+              <span class="exp-kicker">Result 1</span>
+              <h3>Hallucination Mitigation &amp; Inference Efficiency</h3>
+            </div>
+          </div>
+          <div class="results-text-content">
+            <br />
+            <p>
+              We compare against the original models and
+              <a href="https://arxiv.org/abs/2510.09008" target="_blank" style="color: #2563eb; text-decoration: underline;">AUE</a>,
+              which estimates unreliable visual tokens via iterative PGD-based optimization.
+            </p>
+            <ul>
+              <li><strong>Consistent hallucination reduction:</strong> lowers \(\text{CHAIR}_S\) and \(\text{CHAIR}_I\) across all four backbones, comparable to AUE while generally preserving caption fidelity (F1) better.</li>
+              <li><strong>Preserved visual recognition:</strong> generally preserves F1 and POPE performance more effectively than AUE across Random, Popular, and Adversarial splits, indicating that grounded visual evidence is retained.</li>
+              <li><strong>Negligible runtime overhead:</strong> on Qwen-2.5-VL, AUE inflates inference from <strong>2.60s</strong> to <strong>33.46s</strong> (~12.9&times; slower); ours runs in <strong>2.71s</strong>. On InternVL-2.5, AUE takes <strong>41.29s</strong> vs. our <strong>2.44s</strong> (~16.9&times; slower).</li>
+            </ul>
+          </div>
+          <figure class="results-figure">
+            <img src="static/image/CHAIR_POPE_intervention.webp" alt="CHAIR and POPE benchmark results" loading="lazy" class="results-image" />
+          </figure>
+        </article>
+
+        <!-- Result 2 -->
+        <article class="exp-card exp-card-wide" style="margin-top: 24px;">
+          <div class="exp-card-head">
+            <div>
+              <span class="exp-kicker">Result 2</span>
+              <h3>Compatibility with Decoder-Side Methods</h3>
+            </div>
+          </div>
+          <div class="results-text-content">
+            <br />
+            <p>
+              Our vision-encoder intervention can be combined with decoder-side mitigation methods
+              (OPERA, VCD, PAI, and Devils). We report each method alone, with AUE, and with ours.
+            </p>
+            <ul>
+              <li><strong>Improved hallucination metrics:</strong> +Ours lowers \(\text{CHAIR}_S\) and \(\text{CHAIR}_I\) over each standalone method, although the additional reduction varies across combinations.</li>
+              <li><strong>Higher fidelity than +AUE:</strong> +Ours consistently preserves higher F1 and POPE performance than +AUE across these settings.</li>
+            </ul>
+          </div>
+          <figure class="results-figure">
+            <img src="static/image/decoder_compatibility.webp" alt="Compatibility results with decoder-side mitigation methods on CHAIR and POPE" loading="lazy" class="results-image" />
+          </figure>
+        </article>
+
+        <!-- Result 3 -->
+        <article class="exp-card exp-card-wide" style="margin-top: 24px;">
+          <div class="exp-card-head">
+            <div>
+              <span class="exp-kicker">Result 3</span>
+              <h3>Broader Hallucination Evaluation on MMHal-Bench</h3>
+            </div>
+          </div>
+          <div class="results-text-content">
+            <br />
+            <p>
+              To examine whether the effect extends beyond object-existence hallucination, we further evaluate on
+              MMHal-Bench, which covers attributes, relations, and reasoning, using LLaVA-1.5-13B, Qwen-2.5-VL-7B, and
+              InternVL-2.5-8B. For this broader evaluation, we use low-attention token ratios ranging from 20% to 25%,
+              while keeping the remaining intervention settings unchanged.
+            </p>
+            <ul>
+              <li><strong>Improved average score:</strong> the average score improves across all three backbones, while all reported attribute- and relation-level scores are maintained or improved.</li>
+              <li><strong>Lower or unchanged hallucination rate:</strong> the hallucination rate decreases on Qwen-2.5-VL and InternVL-2.5 while remaining unchanged on LLaVA-1.5-13B.</li>
+              <li><strong>Beyond object-existence errors:</strong> these results indicate that the effect of our intervention extends to broader attribute- and relation-related hallucination settings.</li>
+            </ul>
+          </div>
+          <figure class="results-figure">
+            <img src="static/image/MMHal.webp" alt="Broader hallucination evaluation on MMHal-Bench" loading="lazy" class="results-image" />
+          </figure>
+        </article>
+
+        <!-- Result 4 -->
+        <article class="exp-card exp-card-wide" style="margin-top: 24px;">
+          <div class="exp-card-head">
+            <div>
+              <span class="exp-kicker">Result 4</span>
+              <h3>General Capability on MME</h3>
+            </div>
+          </div>
+          <div class="results-text-content">
+            <br />
+            <p>
+              Beyond hallucination-specific benchmarks, we check on MME whether the intervention disturbs
+              broader multimodal capabilities. We compare per-category MME scores on Qwen-2.5-VL and
+              InternVL-2.5.
+            </p>
+            <ul>
+              <li><strong>Profile largely preserved:</strong> the radar shapes follow the original models across both perception-oriented categories (existence, count, position, color, OCR, scene, etc.) and cognition-oriented categories (commonsense reasoning, numerical calculation, text translation, code reasoning).</li>
+              <li><strong>No broad degradation of general capability:</strong> although small category-wise fluctuations are observed, the overall profiles remain similar, suggesting that the intervention mitigates hallucination without broadly degrading general multimodal capability.</li>
+            </ul>
+          </div>
+          <figure class="results-figure">
+            <img src="static/image/MME.webp" alt="MME benchmark results" loading="lazy" class="results-image" />
+          </figure>
+        </article>
+      </section>
+
+      <!-- ==================== BIBTEX SECTION ==================== -->
+      <section id="bibtex" class="section container reveal">
+        <h2>BibTeX</h2>
+        <div class="code-block">
+          <button class="copy-btn" id="bibtexCopy" type="button" aria-label="Copy BibTeX" title="Copy BibTeX">
+            <!-- Copy and check icons: Lucide (ISC License, Copyright (c) Lucide Contributors) -->
+            <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </button>
+          <pre><code>@inproceedings{kim2026focus,
+  title={Focus Matters: Attention-Value Dynamics for Efficient Hallucination Mitigation in Vision-Language Models},
+  author={Kim, Sohyeon and Yoon, Sang Yeon and Kong, Kyeongbo},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2026}
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="static/js/script.js"></script>
+  </body>
+</html>
