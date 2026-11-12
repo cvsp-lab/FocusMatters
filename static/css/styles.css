@@ -108,7 +108,7 @@ h1, h2, h3 { margin: 0 0 12px; letter-spacing: -0.02em; }
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(9, 38, 62, 0.25); }
 .btn.primary { background: linear-gradient(135deg, rgb(var(--teal)) 0%, rgb(var(--cyan)) 100%); color: white; border-color: transparent; }
-.btn-arxiv { background: linear-gradient(135deg, #2563eb, #06b6d4); color: #fff; border-color: transparent; }
+.btn-arxiv { background: linear-gradient(135deg, #1ba7bf, #2f67e1); color: #fff; border-color: transparent; }
 .btn-openreview { background: linear-gradient(135deg, #b91c1c, #7f1d1d); color: #fff; border-color: transparent; }
 .btn-code { background: linear-gradient(135deg, #475569, #0f172a); color: #f8fafc; border-color: transparent; }
 .btn-hf-model, .btn-hf-data { background: linear-gradient(135deg, #fde68a, #f59e0b); color: #78350f; border-color: transparent; }
